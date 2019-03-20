@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "tslint-clean-code"
+  ],
+  "rules": {
+    "try-catch-first": true,
+    "no-flag-args": true,
+    "newspaper-order": true
+  }
+}
