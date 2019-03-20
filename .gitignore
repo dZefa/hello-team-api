@@ -1,0 +1,13 @@
+# Node Modules
+
+/node_modules/
+
+# Ops
+
+package-lock.json
+env/dev.env
+env/prod.env
+
+# Build
+
+/dist/
