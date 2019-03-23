@@ -7,6 +7,8 @@ switch (process.argv[2]) {
     process.env.NODE_ENV = 'production';
     break;
   default:
+    console.log(`ERROR: No environment was read.`);
+    process.exit(1);
     break;
 }
 
