@@ -1,9 +1,7 @@
 import { IncomingHttpHeaders } from 'http';
 import { RequestHandler, NextFunction, Response, Request } from 'express';
 
-import { UserService } from '../services/user.service';
-
-const userService = new UserService();
+import { userService } from '../services';
 
 const getToken = (headers: IncomingHttpHeaders): string => {
   const authHeader = headers.authorization;

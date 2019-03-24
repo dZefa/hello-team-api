@@ -1,11 +1,10 @@
 import { Router, Response, Request } from 'express';
 
-import { TeamService } from '../services/team.service';
-import { TeamAddModel } from 'src/db/models/team.model';
+import { teamService } from '../services';
+import { TeamAddModel, TeamMemberAddModel } from 'src/db/models/team.model';
 import { teamBodyGuard } from '../middlewares/bodyguards/team.bodyguard';
 
 const teamRouter = Router();
-const teamService = new TeamService();
 
 teamRouter.post('/registerTeam', teamBodyGuard(`team-register`), async (req: Request, res: Response) => {
   const body: TeamAddModel = req.body;

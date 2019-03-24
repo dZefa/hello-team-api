@@ -1,11 +1,10 @@
 import { Router, Response, Request } from 'express';
 
 import {  UserAddModel, UserLoginModel } from '../db/models/user.model';
-import { UserService } from '../services/user.service';
+import { userService } from '../services';
 import { userBodyGuard } from '../middlewares/bodyguards/user.bodyguard';
 
 const userRouter = Router();
-const userService = new UserService();
 
 userRouter.post(`/register`, userBodyGuard(`user-register`), async (req: Request, res: Response) => {
   const payload: UserAddModel = req.body;
