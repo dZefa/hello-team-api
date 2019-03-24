@@ -33,7 +33,7 @@ class TeamService {
     return new Promise(async (resolve, reject) => {
       try {
         const updatedUser = await User.update({ teamId }, { where: { id: userId } });
-        const user: User = updatedUser[1][0]; 
+        const user: User = await User.findByPk(userId);
 
         resolve({ username: user.username, id: user.id, email: user.email, teamId: user.teamId });
       }
@@ -55,7 +55,7 @@ class TeamService {
           const team = await Team.create({ name, type });
           const updatedUser = await this.addTeamToUser(userId, team.id);
           const updatedTeam = await Team.findByPk(team.id, {
-            include: [Team.associations.users]
+            include: [{ model: User, as: 'users', attributes: ['username', 'id'] }],
           });
 
           const teamPayload: TeamViewModel = {
