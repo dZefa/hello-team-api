@@ -101,6 +101,27 @@ class UserService {
       }
     });
   }
+
+  public verifyToken(token: string): Promise<number | string> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const verifiedInfo: JWTPayload | any = await jwt.verify(token, this._jwtSecret);
+
+        if (verifiedInfo) {
+          resolve(verifiedInfo.id);
+        }
+      }
+      catch (err) {
+        console.log(`Error verifying token. ERROR: ${err}`);
+
+        if (err.message === 'invalid token') {
+          reject(`INVALID_TOKEN`);
+        } else {
+          reject(`SERVER_ERROR`);
+        }
+      }
+    });
+  }
 }
 
 export { UserService };
