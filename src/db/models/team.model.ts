@@ -3,15 +3,12 @@ import { sequelize } from '../index';
 
 import { User } from './user.model';
 
-enum TeamType {
-  'COMP', 'TEAM'
-}
-
 interface TeamViewModel {
   id: number;
   name: string;
   type: string;
-  users: User[];
+  users?: User[];
+  comps?: Team[];
 }
 
 interface TeamAddModel {
@@ -22,8 +19,8 @@ interface TeamAddModel {
 
 class Team extends Model {
   public id!: number;
-  public name!: number;
-  public type!: Enumerator<TeamType>;
+  public name!: string;
+  public type!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
