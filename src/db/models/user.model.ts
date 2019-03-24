@@ -1,6 +1,24 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../index';
 
+interface UserAddModel {
+  email: string;
+  username: string;
+  password: string;
+}
+
+interface UserViewModel {
+  id: number;
+  email: string;
+  username: string;
+  teamId?: number;
+}
+
+interface UserLoginModel {
+  username: string;
+  password: string;
+}
+
 class User extends Model {
   public id!: number;
   public username!: string;
@@ -39,4 +57,4 @@ User.init({
   tableName: 'users'
 });
 
-export { User };
+export { User, UserAddModel, UserLoginModel, UserViewModel };
