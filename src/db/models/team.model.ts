@@ -15,6 +15,7 @@ interface TeamViewModel {
 }
 
 interface TeamAddModel {
+  userId: number;
   name: string;
   type: string;
 }
@@ -28,11 +29,14 @@ class Team extends Model {
   public readonly updatedAt!: Date;
 
   public getUsers: HasManyGetAssociationsMixin<User>;
+  public getTeams: HasManyGetAssociationsMixin<Team>;
 
   public readonly users?: User[];
+  public readonly teams?: Team[];
 
   public static associations: {
     users: Association<Team, User>;
+    teams: Association<Team, Team>;
   };
 }
 
@@ -49,6 +53,10 @@ Team.init({
   type: {
     type: new DataTypes.ENUM('COMP', 'TEAM'),
     allowNull: false,
+  },
+  teamId: {
+    type: new DataTypes.INTEGER,
+    allowNull: true,
   }
 }, {
   sequelize,
@@ -58,6 +66,11 @@ Team.init({
 Team.hasMany(User, {
   foreignKey: 'teamId',
   as: 'users'
+});
+
+Team.hasMany(Team, {
+  foreignKey: 'teamId',
+  as: 'comps'
 });
 
 export { Team, TeamViewModel, TeamAddModel };
