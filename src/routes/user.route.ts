@@ -13,7 +13,11 @@ userRouter.post(`/register`, userBodyGuard(`user-register`), async (req: Request
   try {
     const user = await userService.register(payload);
 
-    res.status(201).send({ result: { user } });
+    if (typeof user === 'string') {
+      res.status(400).send({ result: { error: user } });
+    } else {
+      res.status(201).send({ result: { user } });
+    }
   }
   catch (err) {
     res.status(500).send({ result: { error: err } });

@@ -27,7 +27,7 @@ class UserService {
     return User.findByPk(id, { attributes });
   }
 
-  private checkPW(password: string, hash: string): Promise<boolean | string> {
+  private checkPW(password: string, hash: string): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
         const pwMatches = await bcrypt.compare(password, hash);
@@ -60,13 +60,13 @@ class UserService {
     });
   }
 
-  public register({ email, username, password }: UserAddModel): Promise<UserViewModel> {
+  public register({ email, username, password }: UserAddModel): Promise<UserViewModel | string> {
     return new Promise(async (resolve, reject) => {
       try {
         const canCreate = await this.checkUsernameAndEmail(username, email);
 
         if (typeof canCreate === 'string') {
-          reject(canCreate);
+          resolve(canCreate);
         } else {
           const hash = await bcrypt.hash(password, this._saltRounds);
           const user = await User.create({ email, username, password: hash });
