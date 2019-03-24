@@ -1,12 +1,13 @@
 import { Router, Response, Request } from 'express';
 
-import { User, UserAddModel, UserLoginModel, UserViewModel } from '../db/models/user.model';
+import {  UserAddModel, UserLoginModel } from '../db/models/user.model';
 import { UserService } from '../services/user.service';
+import { userBodyGuard } from '../middlewares/bodyguards/user.bodyguard';
 
 const userRouter = Router();
 const userService = new UserService();
 
-userRouter.post(`/register`, async (req: Request, res: Response) => {
+userRouter.post(`/register`, userBodyGuard(`user-register`), async (req: Request, res: Response) => {
   const payload: UserAddModel = req.body;
 
   try {
@@ -19,7 +20,7 @@ userRouter.post(`/register`, async (req: Request, res: Response) => {
   }
 });
 
-userRouter.post(`/login`, async (req: Request, res: Response) => {
+userRouter.post(`/login`, userBodyGuard(`user-login`), async (req: Request, res: Response) => {
   const payload: UserLoginModel = req.body;
 
   try {
