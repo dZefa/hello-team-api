@@ -60,7 +60,7 @@ class UserService {
     });
   }
 
-  public register({ email, username, password }: UserAddModel): Promise<UserViewModel | string> {
+  public register({ email, username, password }: UserAddModel): Promise<UserViewModel> {
     return new Promise(async (resolve, reject) => {
       try {
         const canCreate = await this.checkUsernameAndEmail(username, email);
@@ -81,7 +81,7 @@ class UserService {
     });
   }
 
-  public login({ username, password }: UserLoginModel): Promise<JWTSignedToken | boolean> {
+  public login({ username, password }: UserLoginModel): Promise<JWTSignedToken> {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findOne({ where: { username } });
@@ -102,7 +102,7 @@ class UserService {
     });
   }
 
-  public verifyToken(token: string): Promise<number | string> {
+  public verifyToken(token: string): Promise<number> {
     return new Promise(async (resolve, reject) => {
       try {
         const verifiedInfo: JWTPayload | any = await jwt.verify(token, this._jwtSecret);
