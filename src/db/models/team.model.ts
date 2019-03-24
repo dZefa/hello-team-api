@@ -17,6 +17,10 @@ interface TeamAddModel {
   type: string;
 }
 
+interface TeamMemberAddModel {
+  username: string;
+}
+
 class Team extends Model {
   public id!: number;
   public name!: string;
@@ -70,4 +74,4 @@ Team.hasMany(Team, {
   as: 'comps'
 });
 
-export { Team, TeamViewModel, TeamAddModel };
+export { Team, TeamViewModel, TeamAddModel, TeamMemberAddModel };
