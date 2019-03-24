@@ -1,5 +1,5 @@
 import { TeamAddModel, Team, TeamViewModel } from '../db/models/team.model';
-import { User, UserViewModel } from 'src/db/models/user.model';
+import { User, UserViewModel } from '../db/models/user.model';
 
 interface AddTeamPayload {
   team: TeamViewModel;
