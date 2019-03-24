@@ -1,6 +1,6 @@
 import { RequestHandler, NextFunction, Request, Response } from 'express';
 
-import { TeamAddModel } from '../../db/models/team.model';
+import { TeamAddModel, TeamMemberAddModel } from '../../db/models/team.model';
 
 export const teamBodyGuard: ((type: string) =>  RequestHandler) = ((type) => (req: Request, res: Response, next: NextFunction) => {
   let body: TeamAddModel | any;
@@ -10,6 +10,12 @@ export const teamBodyGuard: ((type: string) =>  RequestHandler) = ((type) => (re
     case 'team-register':
       body = req.body as TeamAddModel;
       isValid = !!body.userId && !!body.name && !!body.type;
+
+      break;
+
+    case 'team-member-add':
+      body = req.body as TeamMemberAddModel;
+      isValid = !!body.username;
 
       break;
     
