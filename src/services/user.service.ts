@@ -122,6 +122,39 @@ class UserService {
       }
     });
   }
+
+  public userHasTeam(userId: number): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findByPk(userId);
+
+        if (user.teamId) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }
+      catch (err) {
+        console.log(`Error checking if user already has team. ERROR: ${err}`);
+        reject(`SERVER_ERROR`);
+      }
+    });
+  }
+
+  public addTeamToUser(userId: number, teamId: number): Promise<UserViewModel> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const updatedUser = await User.update({ teamId }, { where: { id: userId } });
+        const user: User = await User.findByPk(userId);
+
+        resolve({ username: user.username, id: user.id, email: user.email, teamId: user.teamId });
+      }
+      catch (err) {
+        console.log(`Error adding team to user. ERROR: ${err}`);
+        reject(`SERVER_ERROR`);
+      }
+    });
+  }
 }
 
 export { UserService };
