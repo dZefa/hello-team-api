@@ -7,6 +7,18 @@ enum TeamType {
   'COMP', 'TEAM'
 }
 
+interface TeamViewModel {
+  id: number;
+  name: string;
+  type: string;
+  users: User[];
+}
+
+interface TeamAddModel {
+  name: string;
+  type: string;
+}
+
 class Team extends Model {
   public id!: number;
   public name!: number;
@@ -45,7 +57,7 @@ Team.init({
 
 Team.hasMany(User, {
   foreignKey: 'teamId',
-  as: 'teams'
+  as: 'users'
 });
 
-export { Team };
+export { Team, TeamViewModel, TeamAddModel };
