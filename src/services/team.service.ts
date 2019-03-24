@@ -76,4 +76,4 @@ class TeamService {
   }
 }
 
-export { TeamService, AddTeamPayload };
+export { TeamService };
