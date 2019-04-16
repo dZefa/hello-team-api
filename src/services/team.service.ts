@@ -1,10 +1,10 @@
-import { TeamAddModel, Team, TeamViewModel } from '../db/models/team.model';
+import { TeamAddModel, Team, TeamViewModel, TeamMemberAddModel } from '../db/models/team.model';
 import { User, UserViewModel } from '../db/models/user.model';
 import { userService } from './';
 
-interface AddTeamPayload {
-  team: TeamViewModel;
-  user: UserViewModel;
+interface TeamPayload {
+  team?: TeamViewModel;
+  user?: UserViewModel;
 }
 
 class TeamService {
@@ -12,7 +12,7 @@ class TeamService {
     return ['id', 'name', 'type']
   }
 
-  public registerTeam({ userId, name, type }: TeamAddModel): Promise<AddTeamPayload | string> {
+  public registerTeam({ userId, name, type }: TeamAddModel): Promise<TeamPayload | string> {
     return new Promise(async (resolve, reject) => {
       try {
         const hasTeam = await userService.userHasTeam(userId);
@@ -38,6 +38,19 @@ class TeamService {
       }
       catch (err) {
         console.log(`Error registering team. ERROR: ${err}`);
+        reject(`SERVER_ERROR`);
+      }
+    });
+  }
+
+  public addUserToTeam({ username }: TeamMemberAddModel): Promise<TeamPayload | string>{
+    return new Promise(async (resolve, reject) => {
+      try {
+        const hasTeam = await userService.userHasTeam()
+        //TODO: Finish
+      }
+      catch (err) {
+        console.log(`Error adding member to team. ERROR: ${err}`);
         reject(`SERVER_ERROR`);
       }
     });

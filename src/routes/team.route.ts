@@ -23,4 +23,15 @@ teamRouter.post('/registerTeam', teamBodyGuard(`team-register`), async (req: Req
   }
 });
 
+teamRouter.post(`/teamMember`, teamBodyGuard(`team-member-add`), async (req: Request, res: Response) => {
+  const body: TeamMemberAddModel = req.body;
+
+  try {
+    //TODO: Finish
+  }
+  catch (err) {
+    res.status(500).send({ result: { error: err } });
+  }
+});
+
 export { teamRouter };

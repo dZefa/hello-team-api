@@ -123,7 +123,8 @@ class UserService {
     });
   }
 
-  public userHasTeam(userId: number): Promise<boolean> {
+  // TODO: Update to separate search by id and username
+  public userHasTeam(userId?: number, username?: string): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findByPk(userId);
